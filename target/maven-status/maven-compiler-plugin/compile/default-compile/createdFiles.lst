@@ -1,0 +1,8 @@
+com\cmq\validationForms\LoginForm.class
+com\cmq\DAO\UserDAO.class
+com\cmq\model\User.class
+cmq\start\controller\HelloCMQController.class
+com\cmq\DAO\impl\UserDAOImpl.class
+com\cmq\controller\LoginController.class
+com\cmq\service\impl\UserServiceImpl.class
+com\cmq\service\UserService.class
