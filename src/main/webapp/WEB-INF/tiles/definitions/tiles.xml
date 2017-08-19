@@ -4,18 +4,24 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	<definition name="cmqtiles" template="/WEB-INF/tiles/classic.jsp">
-		<put-attribute name="title" value="Tiles tutorial homepage" />
+		<put-attribute name="title" value="Clear My Query" />
 		<put-attribute name="header" value="/WEB-INF/tiles/templates/banner.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/tiles/templates/common_menu.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/templates/credits.jsp" />
 	</definition>
+	<definition name="login" template="/WEB-INF/tiles/logintiles.jsp">
+		<put-attribute name="title" value="Login Clear My Query" />
+		<put-attribute name="header" value="/WEB-INF/tiles/templates/banner.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/jsp/login.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/templates/credits.jsp" />
+	</definition>
 	<definition name="index" extends="cmqtiles">
 		<put-attribute name="body" value="/WEB-INF/index.jsp" />
 	</definition>
-	<definition name="login" extends="cmqtiles">
+	<!-- <definition name="login" extends="cmqlogintiles">
 		<put-attribute name="body" value="/WEB-INF/views/jsp/login.jsp" />
-	</definition>
+	</definition> -->
 	<definition name="welcome" extends="cmqtiles">
 		<put-attribute name="body" value="/WEB-INF/views/jsp/welcome.jsp" />
 	</definition>

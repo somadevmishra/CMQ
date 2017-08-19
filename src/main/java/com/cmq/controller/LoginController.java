@@ -33,7 +33,7 @@ public class LoginController {
 		return "login";
 	}
 
-	@RequestMapping(value="/login",method=RequestMethod.POST )
+	@RequestMapping(value="/cmq/login",method=RequestMethod.POST )
 	public String loginUser(@ModelAttribute("loginForm") @Valid LoginForm loginForm, BindingResult bindingResult, ModelMap map){
 		
 		if(bindingResult.hasErrors()){
@@ -45,7 +45,6 @@ public class LoginController {
 		User user=uesrService.getUserByEmailId(loginForm.getUsername());
 		if(user.getId() != null && user.getId() > 0 && user.getPassword().equals(loginForm.getPassword())){
 			String welcomeMessage="Welcome123 "+user.getNickName()+". You have successfully logged-In";
-			System.out.println(welcomeMessage);
 			logger.debug("successfully logged in");
 			logger.error("Testing error meesage for file troll");
 			map.addAttribute("welcome_message", welcomeMessage);

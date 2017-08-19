@@ -1,7 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
 	 	http://www.springframework.org/schema/mvc/spring-mvc.xsd
@@ -14,22 +13,32 @@
 
 	<context:component-scan base-package="com.cmq" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	<mvc:annotation-driven/>
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix">
-			<value>/WEB-INF/views/</value>
-		</property>
-		<property name="suffix">
-			<value>.jsp</value>
-		</property>
+	<mvc:annotation-driven />
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+
+	<import resource="/spring/security-config.xml"/>
+	<!-- view resolver -->
+	<!-- implementations internal view resolver -->
+	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<property name="prefix"> <value>/WEB-INF/views/jsp/</value> </property> <property 
+		name="suffix"> <value>.jsp</value> </property> </bean> -->
+
+	<!-- Implementation of tiles 3 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions" value="/WEB-INF/tiles/definitions/tiles.xml" />
 	</bean>
+
+	<!-- DB Properties -->
 	<bean id="dbProperties"
-    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
- 
-    <property name="location" value="classpath:db.properties" />
- 
-</bean>
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+
+		<property name="location" value="classpath:db.properties" />
+
+	</bean>
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="dataSource">
 		<property name="driverClassName" value="${database.driver}"></property>
@@ -37,27 +46,29 @@
 		<property name="username" value="${database.user}"></property>
 		<property name="password" value="${database.password}"></property>
 	</bean>
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" >
-        <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan">
-            <list>
-                <value>com.cmq.model</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-            </props>
-        </property>       
-    </bean>
- 
-    <bean id="transactionManager"  class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
- 
-    <bean id="persistenceExceptionTranslationPostProcessor"
-        class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-        
-     <!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/> -->   
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.cmq.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/> -->
 </beans>

@@ -18,7 +18,6 @@ public class UserDAOImpl implements UserDAO {
 	private SessionFactory sessionFactory;
 
 	public User getUser(Long id) {
-		// TODO Auto-generated method stub
 		User user=new User();
 		Criteria cr=sessionFactory.getCurrentSession().createCriteria(User.class);
 		cr.add(Restrictions.idEq(id));

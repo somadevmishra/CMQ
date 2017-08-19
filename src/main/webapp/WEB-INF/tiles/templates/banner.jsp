@@ -11,7 +11,7 @@
 </body>
 </html> --%>
 <div>
-    <img src="resources/images/headerimage.jpg"
+    <img src="<%=request.getContextPath() %>/resources/images/header.jpg"
 
         width="950" style="padding-top:10px;" />
 </div>

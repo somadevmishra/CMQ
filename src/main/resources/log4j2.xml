@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration monitorInterval="60">
-<Properties>
-    <Property name="log-path">logs</Property>
-    <Property name="archive">${log-path}/archive</Property>
-</Properties>
- 
-<Appenders>
-    <Console name="Console-Appender" target="SYSTEM_OUT">
-        <PatternLayout>
-            <pattern>
-                [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
-            </pattern>>
-        </PatternLayout>
-    </Console>
-    <File name="File-Appender" fileName="${log-path}/cmqlogging.log" >
-        <PatternLayout>
-            <pattern>
-                [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
-            </pattern>
-        </PatternLayout>
-    </File>        
-</Appenders>
-<RollingFile name="RollingFile-Appender"
-             fileName="${log-path}/cmqrollingfile.log"
-             filePattern="${archive}/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz">
-    <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
-        <Policies>
-             <TimeBasedTriggeringPolicy/>
-             <SizeBasedTriggeringPolicy size="5 MB"/>
-        </Policies>
-        <DefaultRolloverStrategy max="30"/>
-</RollingFile>
-. . .
- 
-<Loggers>
-           <Logger name="com.cmq.*" level="debug">
-               <AppenderRef ref="File-Appender" level="error"/>               
-               <AppenderRef ref="RollingFile-Appender" level="debug"/>
-           </Logger>
-        <Root level="debug">
-            <AppenderRef ref="Console-Appender"/>
-        </Root>
-    </Loggers>
+	<Properties>
+		<Property name="log-path">/logs</Property>
+		<Property name="archive">${log-path}/archive</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="Console-Appender" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+				>
+			</PatternLayout>
+		</Console>
+		<File name="File-Appender" fileName="${log-path}/cmqlogging.log">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+		</File>
+
+		<RollingFile name="RollingFile-Appender" fileName="${log-path}/cmqrollingfile.log"
+			filePattern="${archive}/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="5 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingFile>
+
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.cmq.*" level="debug">
+			<AppenderRef ref="File-Appender" level="debug" />
+			<AppenderRef ref="RollingFile-Appender" level="debug" />
+		</Logger>
+		<Root level="all">
+			<AppenderRef ref="Console-Appender" />
+			<AppenderRef ref="File-Appender" level="debug"/>
+			<AppenderRef ref="RollingFile-Appender" level="error" />
+		</Root>
+	</Loggers>
 </Configuration>
