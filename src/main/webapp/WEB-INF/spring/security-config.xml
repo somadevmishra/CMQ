@@ -4,7 +4,8 @@
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http auto-config="true">
-		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/**" access="permitAll" />
+		<intercept-url pattern="/gotologin" access="permitAll" />
 		<intercept-url pattern="/cmq/*" access="isAuthenticated()" />
 		<form-login login-page="/gotologin"/>
 	</http>

@@ -1,14 +1,11 @@
 package com.cmq.controller;
 
-import javax.validation.Valid;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,15 +31,16 @@ public class LoginController {
 	}
 
 	@RequestMapping(value="/cmq/login",method=RequestMethod.POST )
-	public String loginUser(@ModelAttribute("loginForm") @Valid LoginForm loginForm, BindingResult bindingResult, ModelMap map){
+	public String loginUser(@ModelAttribute("loginForm") LoginForm loginForm, ModelMap map){
 		
-		if(bindingResult.hasErrors()){
+		/*if(bindingResult.hasErrors()){
 			logger.info("validation failed");
 			map.addAttribute("invalid", "validation failed");
 			return "login";
-		}
+		}*/
 		
 		User user=uesrService.getUserByEmailId(loginForm.getUsername());
+		logger.info("user is: "+user.getFirstName());
 		if(user.getId() != null && user.getId() > 0 && user.getPassword().equals(loginForm.getPassword())){
 			String welcomeMessage="Welcome123 "+user.getNickName()+". You have successfully logged-In";
 			logger.debug("successfully logged in");
